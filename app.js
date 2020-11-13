@@ -1,11 +1,13 @@
 let output = document.querySelector('weather')
-let yourApi = ''; // put in your own API
+let yourApi = 'ec27abb97a35310899ce51667241b768'; // put in your own API
 let weatherLocation = document.querySelector('.weatherLocation')
 let weatherDescription = document.querySelector('.weatherDescription p')
 let weatherIcon = document.querySelector('.weatherIcon')
 let weatherTemperature= document.querySelector('.weatherTemperature p')
 let container = document.querySelector('.container')
 let weather = document.querySelector('.weather')
+let weather2 = document.querySelector('.weather2')
+
 
 
 
@@ -23,42 +25,45 @@ BtnSubmit.addEventListener('click', (event) => {
                 }
             })
 
-            // got rid of the container div jsut below card. 
+            // got rid of the container div just below card. 
                 .then(data => {
                  
                     let output3 = JSON.stringify(data)
                     localStorage.setItem('weather', JSON.stringify(data));
-
+                    
                     weather.innerHTML = ` 
                    
-
-                  <div class="card " style="width: 18rem;">
-                  <div class="card-header bg-primary over">Overview</div>
-                  <div class="card-body">
-                    <h5 class="card-title">${data.name} ${data.sys.country}</h5>
-                    <p class="card-text">${data.weather[0].description}</p>
-                    <p class="card-text">${emojis[data.weather[0].icon]}</p>
-                    <p class="card-text"><p>${data.main.temp} °<p>C</p></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h4 class="text-center">Results For ${data.name}, ${data.sys.country} </h4>
+                  <div class="card-deck text-center">
+                     <div class="card" style="width: 18rem;">
+                         <div class="card-header bg-primary over text-center">Overview</div>
+                            <div class="card-body text-center">
+                              <p class="card-text">${data.weather[0].description}</p>
+                              <p class="card-text">${emojis[data.weather[0].icon]}</p>
+                              <p class="card-text"><p>${data.main.temp}°C</p>
+                            </div>
+                         </div>
+                         <div class="card" style="width: 18rem;">
+                         <div class="card-header bg-primary over text-center">Temperature</div>
+                            <div class="card-body text-center">
+                              <p class="card-text">Humidity:\n${data.main.humidity}</p>
+                              <p class="card-text">Feels like: ${data.main.feels_like}°C</p>
+                              <p class="card-text">Pressure: ${data.main.pressure}</p>
+                            </div>
+                         </div>
+                         <div class="card" style="width: 18rem;">
+                         <div class="card-header bg-primary over text-center">Wind</div>
+                            <div class="card-body text-center">
+                              <p class="card-text">${data.wind.deg}°</p>
+                              <p class="card-text"><p>${data.wind.speed}KPH</p>
+                            </div>
+                         </div>
+                    </div>
+                    </div>
                   </div>
-                </div>
-              
                   `
-                        
-
-
-
-
-                })
-                
-                
-           
-                    
+                })               
     })
-
-
-
-
 
     const emojis = {
         '01d': '☀️',
